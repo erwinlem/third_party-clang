@@ -87,6 +87,7 @@ add_clang_library(clangStaticAnalyzerCheckers
   VLASizeChecker.cpp
   ValistChecker.cpp
   VirtualCallChecker.cpp
+  SpinLockChecker.cpp
 
   DEPENDS
   ClangSACheckers

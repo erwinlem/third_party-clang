@@ -82,6 +82,8 @@ def Debug : Package<"debug">;
 
 def CloneDetectionAlpha : Package<"clone">, InPackage<Alpha>, Hidden;
 
+def Magenta : Package<"magenta">;
+
 //===----------------------------------------------------------------------===//
 // Core Checkers.
 //===----------------------------------------------------------------------===//
@@ -722,3 +724,14 @@ def CloneChecker : Checker<"CloneChecker">,
 
 } // end "clone"
 
+//===----------------------------------------------------------------------===//
+// Magenta checkers.
+//===----------------------------------------------------------------------===//
+
+let ParentPackage = Magenta in {
+
+def SpinLockChecker : Checker<"SpinLock">,
+  HelpText<"Check for correct handling of spinlocks">,
+  DescFile<"SpinLockChecker.cpp">;
+
+} // end "magenta"

@@ -734,4 +734,8 @@ def SpinLockChecker : Checker<"SpinLock">,
   HelpText<"Check for correct handling of spinlocks">,
   DescFile<"SpinLockChecker.cpp">;
 
+def MutexChecker : Checker<"MutexChecker">,
+  HelpText<"Check for correct handling of mutexes">,
+  DescFile<"MutexChecker.cpp">;
+
 } // end "magenta"

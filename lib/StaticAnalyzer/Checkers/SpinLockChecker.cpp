@@ -112,9 +112,15 @@ SpinLockChecker::SpinLockChecker() {
 /// Run the necessary processing before a spin_lock/spin_unlock function call
 void SpinLockChecker::checkPreCall(const CallEvent &Call,
                                    CheckerContext &C) const {
+  if (!Call.getCalleeIdentifier())
+    return;
+
   FunctionNameStr CalleeName = Call.getCalleeIdentifier()->getName();
   if (CalleeName != LockInfo::getSpinLockFuncName() &&
       CalleeName != LockInfo::getSpinUnlockFuncName())
+    return;
+
+  if (Call.getNumArgs() == 0)
     return;
 
   // Memory region of the spinlock
@@ -156,6 +162,8 @@ void SpinLockChecker::processSpinUnlockCall(
     // indication of an incorrect logic (maybe the spinlock was supposed to
     // be locked again before the second unlocking attempt).
     ExplodedNode *Node = C.generateNonFatalErrorNode(St);
+    if (!Node)
+      return;
     reportDoubleUnlock(Node, C, SpinLockLocation);
   }
 
